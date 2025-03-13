@@ -1,9 +1,8 @@
 from flask import Flask, request
 import hashlib
+import settings
 
 app = Flask(__name__)
-
-TOKEN = "yangxiao"  # 这里替换为你在微信后台设置的 Token
 
 @app.route("/wechat", methods=["GET"])
 def wechat_verify():
@@ -17,7 +16,7 @@ def wechat_verify():
         return "Missing parameters"
 
     # 1. 排序
-    data = [TOKEN, timestamp, nonce]
+    data = [settings.TOKEN, timestamp, nonce]
     data.sort()
 
     # 2. 拼接字符串并进行 SHA1 加密
