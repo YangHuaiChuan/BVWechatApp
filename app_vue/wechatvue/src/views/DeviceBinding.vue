@@ -90,6 +90,8 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Monitor } from '@element-plus/icons-vue'
+import { useRoute } from 'vue-router';
+import request from '@/utils/request';
 
 export default {
   name: 'DeviceBinding',
@@ -115,8 +117,13 @@ export default {
       window.removeEventListener('resize', updateCardHeight)
     })
 
+    // 获取传送过来的openid
+    const route = useRoute();
+    // 从查询参数中获取 openid
+    const openid = route.query.openid;
+
     return {
-      cardHeight,
+      cardHeight,openid
     }
   },
   data() {
@@ -200,13 +207,38 @@ export default {
   },
   methods: {
     async handleBinding() {
+      // ElMessage.success("绑定设备")
+      this.$refs["bindingForm"].validate((valid) => {
+          if(valid){
+            // ElMessage.success("发送请求")
+            // ElMessage.success(this.openid)
+            // ElMessage.success(this.bindingForm.deviceId + this.bindingForm.password)
+            request({
+              method:"post",
+              url:"/wechat/bind_device",
+              params:{
+                deviceId: this.bindingForm.deviceId,
+                password: this.bindingForm.password,
+                openid:this.openid
+              }
+            }).then((res) => {
+              ElMessage.success("回调成功")
+              if(res.code === 200){
+                ElMessage.success('设备绑定成功')
+              }else{
+                ElMessage.error(res.message)
+              }
+            })
+          }else{
+            ElMessage.error("验证失败")
+          }
+      })
       try {
         await this.$refs.bindingForm.validate()
         this.mockDevices.unshift({
           deviceId: this.bindingForm.deviceId,
           bindTime: new Date().toLocaleString(),
         })
-        ElMessage.success('设备绑定成功')
         this.$refs.bindingForm.resetFields()
       } catch (error) {
         ElMessage.error('请检查输入信息')

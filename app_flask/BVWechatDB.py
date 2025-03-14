@@ -25,3 +25,26 @@ class BVWechatDB(object):
         for temp in self.cursor.fetchall():
             data.append(temp)
         return data
+
+    def device_is_exist(self,device_id):
+        sql = f"select * from bv_device_ainfo where user = '{device_id}';"
+        data_count = self.cursor.execute(sql)
+        if(data_count == 0):
+            return False
+        return True
+
+    def deviceId_password_right(self,device_id,password):
+        sql = f"select * from bv_device_ainfo where user = '{device_id}' and pwd = '{password}'"
+        data_count = self.cursor.execute(sql)
+        if(data_count == 0):
+            return False
+        return True
+
+    def bind_device_openid(self,device_id,openid):
+        sql = f"INSERT openid_deviceid VALUE('{device_id}','{openid}',NULL);"
+        reslut = self.cursor.execute(sql)
+        if reslut > 0:
+            return True
+        return False 
+
+

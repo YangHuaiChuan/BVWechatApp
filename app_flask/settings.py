@@ -5,18 +5,21 @@ TOKEN = 'yangxiao'  # 填写你在微信公众平台上设置的 Token
 APP_ID = 'wx06b9ae936fbcd666'  # 请替换成你的微信 App ID
 APP_SECRET = '64b8023de100b31532e08b93d9104534'  # 请替换成你的微信 App Secret
 
-#flask域名
+# flask域名
 FLASK_DOMAIN_NAME = "http://yangxiao666.natapp1.cc"
 
-#vue域名
-VUE_DOMAIN_NAME = "http://ug2qwb.natappfree.cc/"
+# vue域名
+VUE_DOMAIN_NAME = "http://8ixsdp.natappfree.cc"
 
-#数据库配置信息
+# 数据库配置信息
 MYSQL_HOST = '192.168.1.40'
 MYSQL_USERNAME = 'root'
 MYSQL_PASSWORD = 'njw262877'
 MYSQL_PORT = 3306
 MYSQL_DATABASE = 'BVWechatApp'
 
+# 微信用户ID
 OPENID = "ovAGZ6kZbV3K_w3Xez-8xWBS6DfA"
+
+# 模板ID
 TEMPLATE_ID = "awibg35fhNGdUVbIQjBKsuhLqFdCy2RzoZ_qYX__8Ts"
