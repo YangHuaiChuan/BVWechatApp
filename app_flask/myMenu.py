@@ -3,13 +3,13 @@ import requests
 from flask import Flask, request, jsonify, render_template, redirect
 import urllib
 import json
-import settings
+from settings import APP_ID,APP_SECRET,FLASK_DOMAIN_NAME
 
 app = Flask(__name__)
 
 @app.route("/wechat/index")
 def index():
-    url = f"https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={settings.APP_ID}&secret={settings.APP_SECRET}"
+    url = f"https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={APP_ID}&secret={APP_SECRET}"
     user_info_response = requests.get(url).json()
     access_token = user_info_response['access_token']   
     
@@ -23,7 +23,7 @@ def index():
                     {
                         "type": "view",
                         "name": "绑定设备",
-                        "url": f"{settings.DOMAIN_NAME}/wechat/bind_device"
+                        "url": f"{DOMAIN_NAME}/wechat/bind_device"
                     }
                 ]
             }

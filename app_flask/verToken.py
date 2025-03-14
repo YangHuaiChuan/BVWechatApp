@@ -1,6 +1,6 @@
 from flask import Flask, request
 import hashlib
-import settings
+from settings import TOKEN
 
 app = Flask(__name__)
 
@@ -16,7 +16,7 @@ def wechat_verify():
         return "Missing parameters"
 
     # 1. 排序
-    data = [settings.TOKEN, timestamp, nonce]
+    data = [TOKEN, timestamp, nonce]
     data.sort()
 
     # 2. 拼接字符串并进行 SHA1 加密
